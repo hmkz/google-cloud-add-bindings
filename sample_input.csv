@@ -1,0 +1,5 @@
+user_email,project_id,asset_name,asset_type,role
+user1@example.com,my-project-123,//cloudresourcemanager.googleapis.com/projects/my-project-123,cloudresourcemanager.googleapis.com/Project,roles/viewer
+user1@example.com,my-project-123,//storage.googleapis.com/projects/_/buckets/my-bucket,storage.googleapis.com/Bucket,roles/storage.objectViewer
+user2@example.com,my-project-123,//bigquery.googleapis.com/projects/my-project-123/datasets/my_dataset,bigquery.googleapis.com/Dataset,roles/bigquery.dataViewer
+user3@example.com,my-project-456,//cloudresourcemanager.googleapis.com/projects/my-project-456,cloudresourcemanager.googleapis.com/Project,roles/editor 

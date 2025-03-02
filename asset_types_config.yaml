@@ -1,0 +1,42 @@
+asset_types:
+  - asset_type: pubsub.googleapis.com/Topic
+    service_name: pubsub
+    version: v1
+    method: setIamPolicy
+    resource_type: topic
+    asset_name_pattern: "//pubsub\\.googleapis\\.com/projects/([^/]+)/topics/([^/]+)"
+  
+  - asset_type: cloudfunctions.googleapis.com/Function
+    service_name: cloudfunctions
+    version: v1
+    method: setIamPolicy
+    resource_type: function
+    asset_name_pattern: "//cloudfunctions\\.googleapis\\.com/projects/([^/]+)/locations/([^/]+)/functions/([^/]+)"
+  
+  - asset_type: cloudrun.googleapis.com/Service
+    service_name: run
+    version: v1
+    method: setIamPolicy
+    resource_type: service
+    asset_name_pattern: "//run\\.googleapis\\.com/projects/([^/]+)/locations/([^/]+)/services/([^/]+)"
+  
+  - asset_type: compute.googleapis.com/Instance
+    service_name: compute
+    version: v1
+    method: setIamPolicy
+    resource_type: instance
+    asset_name_pattern: "//compute\\.googleapis\\.com/projects/([^/]+)/zones/([^/]+)/instances/([^/]+)"
+  
+  - asset_type: spanner.googleapis.com/Instance
+    service_name: spanner
+    version: v1
+    method: setIamPolicy
+    resource_type: instance
+    asset_name_pattern: "//spanner\\.googleapis\\.com/projects/([^/]+)/instances/([^/]+)"
+  
+  - asset_type: spanner.googleapis.com/Database
+    service_name: spanner
+    version: v1
+    method: setIamPolicy
+    resource_type: database
+    asset_name_pattern: "//spanner\\.googleapis\\.com/projects/([^/]+)/instances/([^/]+)/databases/([^/]+)" 

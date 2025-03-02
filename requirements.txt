@@ -1,0 +1,7 @@
+google-api-python-client>=2.0.0
+google-auth>=2.0.0
+google-cloud-iam>=2.12.1
+pandas>=1.0.0
+pyyaml>=6.0
+pytest>=7.0.0
+pytest-mock>=3.11.1 
