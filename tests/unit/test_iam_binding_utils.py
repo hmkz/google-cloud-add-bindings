@@ -13,7 +13,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 import yaml
 
-from iam_binding_utils import IAMBindingManager
+from google_cloud_add_bindings.core.iam_binding_utils import IAMBindingManager
 
 
 class TestIAMBindingManager:
@@ -76,7 +76,9 @@ class TestIAMBindingManager:
         yield f.name
         os.unlink(f.name)
 
-    @patch("iam_binding_utils.service_account.Credentials.from_service_account_file")
+    @patch(
+        "google_cloud_add_bindings.core.iam_binding_utils.service_account.Credentials.from_service_account_file"
+    )
     def test_init_with_credentials(self, mock_from_service_account_file):
         """認証情報を指定して初期化するテスト"""
         mock_from_service_account_file.return_value = MagicMock()
@@ -331,7 +333,9 @@ class TestIAMBindingManager:
                 "invalid-format", "cloudresourcemanager.googleapis.com/Project"
             )
 
-    @patch("iam_binding_utils.IAMBindingManager.get_client")
+    @patch(
+        "google_cloud_add_bindings.core.iam_binding_utils.IAMBindingManager.get_client"
+    )
     def test_get_current_policy_project(self, mock_get_client, iam_manager):
         """プロジェクトのIAMポリシー取得テスト"""
         mock_client = MagicMock()
@@ -355,7 +359,9 @@ class TestIAMBindingManager:
         )
         assert policy == {"bindings": []}
 
-    @patch("iam_binding_utils.IAMBindingManager.get_client")
+    @patch(
+        "google_cloud_add_bindings.core.iam_binding_utils.IAMBindingManager.get_client"
+    )
     def test_get_current_policy_bucket(self, mock_get_client, iam_manager):
         """バケットのIAMポリシー取得テスト"""
         mock_client = MagicMock()
@@ -377,7 +383,9 @@ class TestIAMBindingManager:
         mock_buckets.getIamPolicy.assert_called_once_with(bucket="test-bucket")
         assert policy == {"bindings": []}
 
-    @patch("iam_binding_utils.IAMBindingManager.get_client")
+    @patch(
+        "google_cloud_add_bindings.core.iam_binding_utils.IAMBindingManager.get_client"
+    )
     def test_get_current_policy_dataset(self, mock_get_client, iam_manager):
         """データセットのIAMポリシー取得テスト"""
         mock_client = MagicMock()
@@ -401,8 +409,12 @@ class TestIAMBindingManager:
         )
         assert policy == []
 
-    @patch("iam_binding_utils.IAMBindingManager.get_current_policy")
-    @patch("iam_binding_utils.IAMBindingManager.get_client")
+    @patch(
+        "google_cloud_add_bindings.core.iam_binding_utils.IAMBindingManager.get_current_policy"
+    )
+    @patch(
+        "google_cloud_add_bindings.core.iam_binding_utils.IAMBindingManager.get_client"
+    )
     def test_add_binding_project(
         self, mock_get_client, mock_get_current_policy, iam_manager
     ):
@@ -453,8 +465,12 @@ class TestIAMBindingManager:
         assert "roles/editor" in roles
         assert "user:existing@example.com" in roles["roles/editor"]
 
-    @patch("iam_binding_utils.IAMBindingManager.get_current_policy")
-    @patch("iam_binding_utils.IAMBindingManager.get_client")
+    @patch(
+        "google_cloud_add_bindings.core.iam_binding_utils.IAMBindingManager.get_current_policy"
+    )
+    @patch(
+        "google_cloud_add_bindings.core.iam_binding_utils.IAMBindingManager.get_client"
+    )
     def test_add_binding_bucket(
         self, mock_get_client, mock_get_current_policy, iam_manager
     ):
@@ -498,8 +514,12 @@ class TestIAMBindingManager:
         assert "roles/storage.objectViewer" in roles
         assert "user:user@example.com" in roles["roles/storage.objectViewer"]
 
-    @patch("iam_binding_utils.IAMBindingManager.get_current_policy")
-    @patch("iam_binding_utils.IAMBindingManager.get_client")
+    @patch(
+        "google_cloud_add_bindings.core.iam_binding_utils.IAMBindingManager.get_current_policy"
+    )
+    @patch(
+        "google_cloud_add_bindings.core.iam_binding_utils.IAMBindingManager.get_client"
+    )
     def test_add_binding_dataset(
         self, mock_get_client, mock_get_current_policy, iam_manager
     ):
@@ -543,7 +563,7 @@ class TestIAMBindingManager:
     def test_dry_run(self, iam_manager):
         """ドライランモードのテスト"""
         with patch(
-            "iam_binding_utils.IAMBindingManager.get_current_policy"
+            "google_cloud_add_bindings.core.iam_binding_utils.IAMBindingManager.get_current_policy"
         ) as mock_get_policy:
             mock_get_policy.return_value = {"bindings": []}
 

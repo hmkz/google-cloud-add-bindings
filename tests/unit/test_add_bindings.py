@@ -5,15 +5,14 @@
 IAMバインディング追加スクリプトのテスト
 """
 
-import csv
 import os
-import tempfile
-from unittest.mock import MagicMock, patch
-
-import pandas as pd
 import pytest
+from unittest.mock import MagicMock, patch
+import tempfile
+import csv
+import pandas as pd
 
-from add_bindings import process_csv, validate_csv
+from google_cloud_add_bindings.cli.add_bindings import validate_csv, process_csv
 
 
 class TestAddBindings:
@@ -118,7 +117,7 @@ class TestAddBindings:
         """存在しないCSVファイルの検証テスト"""
         assert validate_csv("non_existent_file.csv") is False
 
-    @patch("add_bindings.IAMBindingManager")
+    @patch("google_cloud_add_bindings.cli.add_bindings.IAMBindingManager")
     def test_process_csv(self, mock_iam_manager_class, valid_csv_path):
         """CSVファイル処理のテスト"""
         # IAMBindingManagerのモック
@@ -175,7 +174,7 @@ class TestAddBindings:
         assert calls[2][1]["asset_type"] == "bigquery.googleapis.com/Dataset"
         assert calls[2][1]["role"] == "roles/bigquery.dataViewer"
 
-    @patch("add_bindings.IAMBindingManager")
+    @patch("google_cloud_add_bindings.cli.add_bindings.IAMBindingManager")
     def test_process_csv_with_errors(self, mock_iam_manager_class, valid_csv_path):
         """エラーを含むCSVファイル処理のテスト"""
         # IAMBindingManagerのモック
@@ -205,7 +204,7 @@ class TestAddBindings:
         assert results["errors"][1]["row"] == 4  # 3行目 (1-indexed)
         assert "APIエラー" in results["errors"][1]["error"]
 
-    @patch("add_bindings.IAMBindingManager")
+    @patch("google_cloud_add_bindings.cli.add_bindings.IAMBindingManager")
     def test_process_csv_dry_run(self, mock_iam_manager_class, valid_csv_path):
         """ドライランモードでのCSVファイル処理のテスト"""
         # IAMBindingManagerのモック
